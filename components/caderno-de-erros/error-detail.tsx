@@ -1,0 +1,9 @@
+'use client'
+import { useState } from 'react'
+import { Modal } from '@/components/layout/modal'
+import { pct,subjectPerformance,topicPerformance } from '@/types/study'
+import type {ErrorEntry,ErrorReason,ErrorStatus,StudyState} from '@/types/study'
+import { BookOpen,CircleHelp,ChevronRight,Filter,Plus,Pencil,Trash2,NotebookPen,TriangleAlert } from 'lucide-react'
+import { Metric } from '@/components/dashboard/cards'
+
+export function ErrorDetail({error,store,close,onUpdate}:{error:ErrorEntry;store:StudyState;close:()=>void;onUpdate:()=>void}){return <Modal title="Detalhes do erro" close={close}><div className="error-detail"><div className="detail-meta"><b>{store.subjects.find(s=>s.id===error.subjectId)?.name}</b><span>{store.topics.find(t=>t.id===error.topicId)?.name}</span></div><label>Questão<p>{error.question}</p></label><label>Motivo do erro<p>{error.reason}</p></label><label>O que eu errei?<p>{error.whatWentWrong}</p></label><label>Conceito correto<p>{error.correctConcept}</p></label><div className="detail-dates"><span>Data do erro<strong>{error.date}</strong></span><span>Última revisão<strong>{error.lastReview}</strong></span><span>Próxima revisão<strong>{error.nextReview}</strong></span></div><label>Histórico de revisões{error.reviews.map(r=><p className="review-history" key={r.id}>{r.date} — {r.note}</p>)}</label><div className="modal-actions"><button className="secondary-button" onClick={()=>{store.updateError(error.id,{status:'Revisado',lastReview:new Date().toISOString().slice(0,10),reviews:[...error.reviews,{id:crypto.randomUUID(),date:new Date().toISOString().slice(0,10),note:'Revisão concluída.'}]});onUpdate()}}>Marcar como revisado</button><button className="primary-button" onClick={()=>{store.updateError(error.id,{status:'Dominado'});onUpdate();close()}}>Marcar como dominado</button></div></div></Modal>}
