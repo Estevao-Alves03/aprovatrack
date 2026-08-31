@@ -26,4 +26,3 @@ export default function Page() {
   )
 }
 
-export { DashboardPage, ContentPage, QuestionsPage, ErrorsPage, SchedulePage, PerformancePage, SettingsPage }

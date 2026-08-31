@@ -1,6 +1,0 @@
-'use client'
-import { useState } from 'react'
-import { CalendarDays,ChevronLeft,ChevronRight,Clock3,Plus,Trash2,X } from 'lucide-react'
-import type { ScheduleEntry,ScheduleStatus,StudyState } from '@/types/study'
-
-export function Detail({store,item,close,onEdit}:{store:StudyState;item:ScheduleEntry;close:()=>void;onEdit:()=>void}){const subject=store.subjects.find(s=>s.id===item.subjectId)?.name,topic=store.topics.find(t=>t.id===item.topicId)?.name;return <div className="modal-overlay"><div className="modal-panel schedule-dialog"><div className="modal-title"><h3>Detalhes da sessão</h3><button onClick={close} aria-label="Fechar"><X size={18}/></button></div><div className="schedule-detail"><div className="detail-meta"><b>{subject}</b><span>{dayLabel(item.date)} · {item.start}–{item.end}</span></div><p><strong>Assunto</strong>{topic}</p><p><strong>Tempo planejado</strong>{item.planned} min</p><p><strong>Tempo realizado</strong>{item.actual} min</p><p><strong>Status</strong><span className={statusClass(item.status)}>{item.status}</span></p>{item.note&&<p><strong>Observação</strong>{item.note}</p>}<div className="modal-actions"><button className="secondary-button" onClick={onEdit}>Editar sessão</button><button className="danger-button" onClick={()=>{store.deleteSchedule(item.id);close()}}><Trash2 size={15}/>Excluir</button></div></div></div></div>}

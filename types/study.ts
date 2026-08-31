@@ -20,4 +20,3 @@ export const demoData={subjects,topics,schedule,sessions:[0,1,2,3,4,5,6].map((d,
 export const pct=(correct:number,total:number)=>total?Math.round(correct/total*100):0
 export const topicPerformance=(topicId:string,sessions:QuestionSession[])=>{const rows=sessions.filter(s=>s.topicId===topicId);const q=rows.reduce((a,s)=>a+s.quantity,0);const c=rows.reduce((a,s)=>a+s.correct,0);return {q,c,e:q-c,percentage:pct(c,q)}}
 export const subjectPerformance=(subjectId:string,sessions:QuestionSession[])=>{const rows=sessions.filter(s=>s.subjectId===subjectId);const q=rows.reduce((a,s)=>a+s.quantity,0);const c=rows.reduce((a,s)=>a+s.correct,0);return {q,c,e:q-c,percentage:pct(c,q)}}
-export type {StudyState}
