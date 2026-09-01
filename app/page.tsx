@@ -1,12 +1,18 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from '@/components/app-shell'
 
-export const App = AppShell
+export function App() {
+  const [mounted, setMounted] = useState(false)
 
-export default function Page() {
-  if (typeof window === 'undefined') return null
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+
   return (
     <BrowserRouter>
       <Routes>
@@ -24,5 +30,9 @@ export default function Page() {
       </Routes>
     </BrowserRouter>
   )
+}
+
+export default function Page() {
+  return <App />
 }
 
